@@ -1,21 +1,11 @@
-name: Cloudflare Gateway - Block Ads
-
-on:
-  schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Run blocklist update script
         env:
           CLO_API_TOKEN: ${{ secrets.API_TOKEN }}
           CLO_ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
         run: |
-          chmod +x https://raw.githubusercontent.com/sjhgvr/oisd/main/domainswild2_small.txt](https://raw.githubusercontent.com/sjhgvr/oisd/main/domainswild2_small.txt
+          curl -sSL https://raw.githubusercontent.com/sjhgvr/oisd/main/domainswild2_small.txt -o blocklist.txt
+          # Note: If domainswild2_small.txt is just a text list of domains, 
+          # you will need an actual script (like a bash or python script) here 
+          # to parse it and push it to the Cloudflare API using your env tokens.
+
 
